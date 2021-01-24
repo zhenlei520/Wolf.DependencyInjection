@@ -14,6 +14,6 @@ namespace Wolf.DependencyInjection.Service
         /// 得到权重
         /// </summary>
         /// <returns></returns>
-        public int Weights => 99;
+        public virtual int Weights => 99;
     }
 }
