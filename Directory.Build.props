@@ -5,13 +5,13 @@
 	<Import Project="build\version.props" />
 
   <PropertyGroup>
-	<PackageId>$(AssemblyName)</PackageId>
+	  <PackageId>$(AssemblyName)</PackageId>
     <Authors>zhenlei520</Authors>
     <Copyright>© zhenlei520 Corporation. All rights reserved.</Copyright>
-	<PackageProjectUrl>https://www.nuget.org/packages/$(PackageId)</PackageProjectUrl>
-	<PackageIconUrl>packageIcon.png</PackageIconUrl>
+	  <PackageProjectUrl>https://www.nuget.org/packages/$(PackageId)</PackageProjectUrl>
+	  <PackageIconUrl>packageIcon.png</PackageIconUrl>
     <RepositoryUrl>https://github.com/zhenlei520/Wolf.DependencyInjection</RepositoryUrl>
-	<RepositoryType>git</RepositoryType>
+	  <RepositoryType>git</RepositoryType>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <RepositoryRoot>$(MSBuildThisFileDirectory)</RepositoryRoot>
     <RepoRelativeProjectDir>$([MSBuild]::MakeRelative($(RepositoryRoot), $(MSBuildProjectDirectory)))</RepoRelativeProjectDir>

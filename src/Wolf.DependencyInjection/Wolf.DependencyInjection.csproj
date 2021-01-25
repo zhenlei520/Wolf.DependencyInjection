@@ -1,19 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFrameworks>net461;net462;net47;net471;net472;net48;netstandard2.0;netstandard2.1;</TargetFrameworks>
+    <PackageProjectUrl>https://www.nuget.org/packages/$(AssemblyName)</PackageProjectUrl>
+  </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-      <DocumentationFile>bin\Debug\Wolf.DependencyInjection.xml</DocumentationFile>
-    </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DocumentationFile>bin\Debug\Wolf.DependencyInjection.xml</DocumentationFile>
+  </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-      <DocumentationFile>bin\Release\Wolf.DependencyInjection.xml</DocumentationFile>
-    </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DocumentationFile>bin\Release\Wolf.DependencyInjection.xml</DocumentationFile>
+  </PropertyGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\Wolf.DependencyInjection.Abstracts\Wolf.DependencyInjection.Abstracts.csproj" />
-    </ItemGroup>
-
+  <ItemGroup>
+    <ProjectReference Include="..\Wolf.DependencyInjection.Abstracts\Wolf.DependencyInjection.Abstracts.csproj"/>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.0"/>
+  </ItemGroup>
 </Project>
