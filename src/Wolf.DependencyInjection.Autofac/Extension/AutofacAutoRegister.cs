@@ -4,10 +4,10 @@ using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
-using UUPT.Extensions.DependencyInjection.Abstracts;
-using UUPT.Systems.Core.Common;
+using Wolf.DependencyInjection.Abstracts;
+using Wolf.Systems.Core.Common;
 
-namespace UUPT.Extensions.DependencyInjection.Autofac.Extension
+namespace Wolf.DependencyInjection.Autofac.Extension
 {
     /// <summary>
     ///
@@ -32,7 +32,7 @@ namespace UUPT.Extensions.DependencyInjection.Autofac.Extension
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="services"></param>
         /// <param name="action"></param>
@@ -110,7 +110,7 @@ namespace UUPT.Extensions.DependencyInjection.Autofac.Extension
                 .PropertiesAutowired()
                 .AsImplementedInterfaces()
                 .InstancePerDependency();
-            
+
             RegisterGeneric(builder, typeof(IDependency<>));
             RegisterGeneric(builder, typeof(IDependency<,>));
             RegisterGeneric(builder, typeof(IDependency<,,>));

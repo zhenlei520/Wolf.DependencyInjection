@@ -5,10 +5,9 @@ using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
-using UUPT.Extensions.DependencyInjection.Abstracts.Common;
-using UUPT.Extensions.DependencyInjection.Autofac.Extension;
+using Wolf.DependencyInjection.Autofac.Extension;
 
-namespace UUPT.Extensions.DependencyInjection.Autofac
+namespace Wolf.DependencyInjection.Autofac
 {
     /// <summary>
     /// 扩展信息
@@ -16,19 +15,6 @@ namespace UUPT.Extensions.DependencyInjection.Autofac
     public static class ServiceCollectionExtensions
     {
         #region 得到ServiceProvider
-
-        /// <summary>
-        /// 得到ServiceProvider
-        /// </summary>
-        /// <param name="serviceCollection"></param>
-        /// <param name="packageNamePre"></param>
-        /// <param name="action"></param>
-        /// <returns></returns>
-        public static IServiceProvider Build(this IServiceCollection serviceCollection, string packageNamePre = "UUPT",
-            Action<ContainerBuilder> action = null)
-        {
-            return Build(serviceCollection, AssemblyCommon.GetSpecialAssemblies(packageNamePre), action);
-        }
 
         /// <summary>
         /// 得到ServiceProvider

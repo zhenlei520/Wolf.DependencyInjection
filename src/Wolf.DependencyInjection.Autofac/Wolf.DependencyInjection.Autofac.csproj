@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net461;net462;net47;net471;net472;net48;netstandard2.0;netstandard2.1;</TargetFrameworks>
+    <PackageProjectUrl>https://www.nuget.org/packages/$(AssemblyName)</PackageProjectUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DocumentationFile>bin\Debug\Wolf.DependencyInjection.Autofac.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DocumentationFile>bin\Release\Wolf.DependencyInjection.Autofac.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.3.0" />
+    <PackageReference Include="Wolf.Systems.Core" Version="0.0.1-preview-t003" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Wolf.DependencyInjection.Abstracts\Wolf.DependencyInjection.Abstracts.csproj" />
+  </ItemGroup>
+</Project>

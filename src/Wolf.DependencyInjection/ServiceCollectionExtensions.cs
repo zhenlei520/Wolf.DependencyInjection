@@ -14,6 +14,7 @@ namespace Wolf.DependencyInjection
         /// <summary>
         ///
         /// </summary>
+        /// <param name="services"></param>
         /// <param name="implementationInstance"></param>
         /// <typeparam name="TService"></typeparam>
         public static void TryAddEnumerable<TService>(this IServiceCollection services, TService implementationInstance)
