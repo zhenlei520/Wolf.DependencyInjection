@@ -1,11 +1,13 @@
 ﻿// Copyright (c) zhenlei520 All rights reserved.
 
 using System;
+using System.Linq;
 using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Wolf.DependencyInjection.Autofac.Extension;
+using Wolf.DependencyInjection.Autofac.Internal;
 
 namespace Wolf.DependencyInjection.Autofac
 {
@@ -14,7 +16,28 @@ namespace Wolf.DependencyInjection.Autofac
     /// </summary>
     public static class ServiceCollectionExtensions
     {
-        #region 得到ServiceProvider
+        /// <summary>
+        /// 得到ServiceProvider
+        /// </summary>
+        /// <param name="serviceCollection"></param>
+        /// <param name="action"></param>
+        /// <param name="packageNamePre">多个包前缀注入</param>
+        /// <returns></returns>
+        public static IServiceProvider Build(this IServiceCollection serviceCollection,
+            Action<ContainerBuilder> action = null, params string[] packageNamePre)
+        {
+            Assembly[] assemblies;
+            if (packageNamePre == null || packageNamePre.Length == 0|| packageNamePre.All(string.IsNullOrWhiteSpace))
+            {
+                assemblies = AssemblyCommon.GetSpecialAssemblies("");
+            }
+            else
+            {
+                assemblies = packageNamePre.Where(x=>!string.IsNullOrWhiteSpace(x)).SelectMany(AssemblyCommon.GetSpecialAssemblies).ToArray();
+            }
+
+            return serviceCollection.Build(assemblies, action);
+        }
 
         /// <summary>
         /// 得到ServiceProvider
@@ -29,7 +52,5 @@ namespace Wolf.DependencyInjection.Autofac
             serviceCollection.AddAutofac(action);
             return new AutofacAutoRegister(assembly).Build(serviceCollection, action);
         }
-
-        #endregion
     }
 }
