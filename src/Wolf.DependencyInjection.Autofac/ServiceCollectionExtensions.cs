@@ -20,20 +20,35 @@ namespace Wolf.DependencyInjection.Autofac
         /// 得到ServiceProvider
         /// </summary>
         /// <param name="serviceCollection"></param>
-        /// <param name="action"></param>
-        /// <param name="packageNamePre">多个包前缀注入</param>
+        /// <param name="packageNamePrefix">多个包前缀注入</param>
         /// <returns></returns>
         public static IServiceProvider Build(this IServiceCollection serviceCollection,
-            Action<ContainerBuilder> action = null, params string[] packageNamePre)
+            params string[] packageNamePrefix)
+        {
+            return serviceCollection.Build(null, packageNamePrefix);
+        }
+
+        /// <summary>
+        /// 得到ServiceProvider
+        ///
+        /// </summary>
+        /// <param name="serviceCollection"></param>
+        /// <param name="action"></param>
+        /// <param name="packageNamePrefix">多个包前缀注入</param>
+        /// <returns></returns>
+        public static IServiceProvider Build(this IServiceCollection serviceCollection,
+            Action<ContainerBuilder> action = null, params string[] packageNamePrefix)
         {
             Assembly[] assemblies;
-            if (packageNamePre == null || packageNamePre.Length == 0|| packageNamePre.All(string.IsNullOrWhiteSpace))
+            if (packageNamePrefix == null || packageNamePrefix.Length == 0 ||
+                packageNamePrefix.All(string.IsNullOrWhiteSpace))
             {
                 assemblies = AssemblyCommon.GetSpecialAssemblies("");
             }
             else
             {
-                assemblies = packageNamePre.Where(x=>!string.IsNullOrWhiteSpace(x)).SelectMany(AssemblyCommon.GetSpecialAssemblies).ToArray();
+                assemblies = packageNamePrefix.Where(x => !string.IsNullOrWhiteSpace(x))
+                    .SelectMany(AssemblyCommon.GetSpecialAssemblies).ToArray();
             }
 
             return serviceCollection.Build(assemblies, action);
