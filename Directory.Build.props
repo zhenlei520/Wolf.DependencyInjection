@@ -21,6 +21,7 @@
     <IsTestProject Condition="$(MSBuildProjectName.EndsWith('Tests')) OR $(MSBuildProjectName.EndsWith('.Test'))">true</IsTestProject>
 	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	  <IncludeSymbols>true</IncludeSymbols>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
   </PropertyGroup>
   <ItemGroup>
