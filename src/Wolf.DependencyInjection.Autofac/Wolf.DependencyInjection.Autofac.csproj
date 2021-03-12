@@ -14,7 +14,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="2.0.0" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.3.0" />
-    <PackageReference Include="Wolf.Systems.Core" Version="0.0.1-preview-t003" />
+    <PackageReference Include="Wolf.Systems.Core" Version="0.0.1-preview-t005" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Wolf.DependencyInjection.Abstracts\Wolf.DependencyInjection.Abstracts.csproj" />
