@@ -14,7 +14,7 @@ namespace Wolf.DependencyInjection.Service
         /// <summary>
         /// 唯一标示
         /// </summary>
-        public virtual string Identify
+        public virtual string ServiceName
         {
             get
             {
