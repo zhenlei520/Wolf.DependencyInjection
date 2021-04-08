@@ -9,9 +9,9 @@ namespace Wolf.DependencyInjection.Abstracts.Service
     public interface IIdentify : IWeight
     {
         /// <summary>
-        /// 得到实现类唯一标示
+        /// 服务名称
         /// </summary>
         /// <returns></returns>
-        string Identify { get; }
+        string ServiceName { get; }
     }
 }
