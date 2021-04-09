@@ -40,7 +40,9 @@ namespace Wolf.DependencyInjection.Autofac.Internal
                 {
                     list.Add(Assembly.Load(lib.Name));
                 }
+#pragma warning disable 168
                 catch (Exception ex)
+#pragma warning restore 168
                 {
                     // ignored
                 }

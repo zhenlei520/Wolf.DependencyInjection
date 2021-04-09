@@ -13,11 +13,14 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.3.0"/>
-    <PackageReference Include="Wolf.Systems.Core" Version="0.0.1-preview-t005"/>
+    <PackageReference Include="Wolf.Systems.Core" Version="0.0.1-preview-t010"/>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'net461' Or '$(TargetFramework)' == 'net462' Or '$(TargetFramework)' == 'net47' Or '$(TargetFramework)' == 'net471' Or '$(TargetFramework)' == 'net472' Or '$(TargetFramework)' == 'net48'">
+  <ItemGroup Condition="'$(TargetFramework)' != 'netcoreapp2.1' And '$(TargetFramework)' != 'netcoreapp2.2' And '$(TargetFramework)' != 'netcoreapp3.0' And '$(TargetFramework)' != 'netcoreapp3.1' ">
     <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="2.0.0"/>
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.1' Or '$(TargetFramework)' == 'netcoreapp2.2'">
+    <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="2.1.0"/>
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.0'">
     <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="3.0.3"/>
