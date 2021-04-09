@@ -12,7 +12,7 @@ namespace Wolf.DependencyInjection.Service
     public class DefaultIdentify : DefaultWeight, IIdentify
     {
         /// <summary>
-        /// 唯一标示
+        /// 服务名称
         /// </summary>
         public virtual string ServiceName
         {
