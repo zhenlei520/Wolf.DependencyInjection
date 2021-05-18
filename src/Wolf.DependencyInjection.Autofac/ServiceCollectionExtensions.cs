@@ -1,13 +1,10 @@
 ﻿// Copyright (c) zhenlei520 All rights reserved.
 
 using System;
-using System.Linq;
-using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Wolf.DependencyInjection.Autofac.Extension;
-using Wolf.DependencyInjection.Autofac.Internal;
 
 namespace Wolf.DependencyInjection.Autofac
 {
@@ -30,7 +27,6 @@ namespace Wolf.DependencyInjection.Autofac
 
         /// <summary>
         /// 得到ServiceProvider
-        ///
         /// </summary>
         /// <param name="serviceCollection"></param>
         /// <param name="action"></param>
@@ -39,33 +35,21 @@ namespace Wolf.DependencyInjection.Autofac
         public static IServiceProvider Build(this IServiceCollection serviceCollection,
             Action<ContainerBuilder> action = null, params string[] packageNamePrefix)
         {
-            Assembly[] assemblies;
-            if (packageNamePrefix == null || packageNamePrefix.Length == 0 ||
-                packageNamePrefix.All(string.IsNullOrWhiteSpace))
-            {
-                assemblies = AssemblyCommon.GetSpecialAssemblies("");
-            }
-            else
-            {
-                assemblies = packageNamePrefix.Where(x => !string.IsNullOrWhiteSpace(x))
-                    .SelectMany(AssemblyCommon.GetSpecialAssemblies).ToArray();
-            }
-
-            return serviceCollection.Build(assemblies, action);
+            serviceCollection.AddAutoInject(packageNamePrefix);
+            return serviceCollection.Build(action);
         }
 
         /// <summary>
         /// 得到ServiceProvider
         /// </summary>
         /// <param name="serviceCollection"></param>
-        /// <param name="assembly">当前程序集需要用到注入的应用程序集</param>
         /// <param name="action"></param>
         /// <returns></returns>
-        public static IServiceProvider Build(this IServiceCollection serviceCollection, Assembly[] assembly,
+        public static IServiceProvider Build(this IServiceCollection serviceCollection,
             Action<ContainerBuilder> action = null)
         {
             serviceCollection.AddAutofac(action);
-            return new AutofacAutoRegister(assembly).Build(serviceCollection, action);
+            return new AutofacAutoRegister().Build(serviceCollection, action);
         }
     }
 }

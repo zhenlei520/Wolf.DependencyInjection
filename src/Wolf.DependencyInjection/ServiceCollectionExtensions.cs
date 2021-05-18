@@ -2,8 +2,12 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using System;
+using System.Linq;
+using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Wolf.DependencyInjection.Extension;
+using Wolf.DependencyInjection.Internal;
 
 namespace Wolf.DependencyInjection
 {
@@ -12,8 +16,10 @@ namespace Wolf.DependencyInjection
     /// </summary>
     public static class ServiceCollectionExtensions
     {
+        #region 匹配接口没有实现时添加
+
         /// <summary>
-        ///
+        /// 匹配接口没有实现时添加
         /// </summary>
         /// <param name="serviceCollection"></param>
         /// <param name="implementationInstance">实现</param>
@@ -34,6 +40,10 @@ namespace Wolf.DependencyInjection
                 serviceLifetime);
         }
 
+        #endregion
+
+        #region 匹配接口与实现类不一致时添加，否则不添加
+
         /// <summary>
         /// 匹配接口与实现类不一致时添加，否则不添加
         /// </summary>
@@ -51,7 +61,7 @@ namespace Wolf.DependencyInjection
         }
 
         /// <summary>
-        ///
+        /// 匹配接口与实现类不一致时添加，否则不添加
         /// </summary>
         /// <param name="serviceCollection"></param>
         /// <param name="service">接口</param>
@@ -66,15 +76,61 @@ namespace Wolf.DependencyInjection
             return serviceCollection;
         }
 
+        #endregion
+
+        #region 移除所有实现
+
         /// <summary>
-        ///
+        /// 移除所有实现
         /// </summary>
         /// <param name="serviceCollection"></param>
         /// <typeparam name="TService">接口</typeparam>
         /// <returns></returns>
-        public static IServiceCollection RemoveAll<TService>(this IServiceCollection serviceCollection) where TService : class
+        public static IServiceCollection RemoveAll<TService>(this IServiceCollection serviceCollection)
+            where TService : class
         {
             return ServiceCollectionDescriptorExtensions.RemoveAll<TService>(serviceCollection);
         }
+
+        #endregion
+
+        #region 自动注入
+
+        /// <summary>
+        /// 自动注入
+        /// </summary>
+        /// <param name="serviceCollection"></param>
+        /// <param name="packageNamePrefix">多个包前缀注入</param>
+        /// <returns></returns>
+        public static IServiceCollection AddAutoInject(this IServiceCollection serviceCollection,
+            params string[] packageNamePrefix)
+        {
+            Assembly[] assemblies;
+            if (packageNamePrefix == null || packageNamePrefix.Length == 0 ||
+                packageNamePrefix.All(string.IsNullOrWhiteSpace))
+            {
+                assemblies = AssemblyCommon.GetSpecialAssemblies("");
+            }
+            else
+            {
+                assemblies = packageNamePrefix.Where(x => !string.IsNullOrWhiteSpace(x))
+                    .SelectMany(AssemblyCommon.GetSpecialAssemblies).ToArray();
+            }
+
+            return serviceCollection.AddAutoInject(assemblies);
+        }
+
+        /// <summary>
+        /// 自动注入
+        /// </summary>
+        /// <param name="serviceCollection"></param>
+        /// <param name="assembly">当前程序集需要用到注入的应用程序集</param>
+        /// <returns></returns>
+        public static IServiceCollection AddAutoInject(this IServiceCollection serviceCollection, Assembly[] assembly)
+        {
+            return new AutoRegister(assembly).AddAutoInject(serviceCollection);
+        }
+
+        #endregion
     }
 }

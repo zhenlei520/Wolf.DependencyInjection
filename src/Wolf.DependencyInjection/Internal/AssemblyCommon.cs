@@ -8,7 +8,7 @@ using System.Reflection;
 using Microsoft.Extensions.DependencyModel;
 using Wolf.Systems.Core;
 
-namespace Wolf.DependencyInjection.Autofac.Internal
+namespace Wolf.DependencyInjection.Internal
 {
     /// <summary>
     ///
