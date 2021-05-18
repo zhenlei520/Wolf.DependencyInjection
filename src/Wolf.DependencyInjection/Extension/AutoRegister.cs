@@ -123,8 +123,7 @@ namespace Wolf.DependencyInjection.Extension
             var list = TypeCommon.GetInterfaceAndImplementationType(this._assemblies, type);
             foreach (var item in list)
             {
-                ServiceDescriptor serviceDescriptor = new ServiceDescriptor(item.Key, item.Value, serviceLifetime);
-                serviceCollection.Add(serviceDescriptor);
+                serviceCollection.TryAddEnumerable(item.Key, item.Value, serviceLifetime);
             }
         }
 
