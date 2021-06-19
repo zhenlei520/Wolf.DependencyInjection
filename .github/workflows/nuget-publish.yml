@@ -29,6 +29,7 @@ jobs:
     - name: Pack Wolf.DependencyInjection.Autofac
       run: dotnet pack src\Wolf.DependencyInjection.Autofac\Wolf.DependencyInjection.Autofac.csproj --configuration Release -p:IncludeSymbols=true
 
-    - name: Push to Nuget
+    - name: Push to Nuget nupkg
       run: nuget push src\*\bin\Release\*.nupkg -Source https://api.nuget.org/v3/index.json -ApiKey ${{ secrets.NUGET }}
-           nuget push src\*\bin\Release\*.snupkg -Source https://api.nuget.org/v3/index.json -ApiKey ${{ secrets.NUGET }}
+    - name: Push to Nuget snupkg
+      run: nuget push src\*\bin\Release\*.snupkg -Source https://api.nuget.org/v3/index.json -ApiKey ${{ secrets.NUGET }}
