@@ -5,7 +5,7 @@ on:
     branches: [ master ]
 
 jobs:
-  publish nupkg:
+  nupkgJob:
     name: Wolf.DependencyInjection
     runs-on: windows-latest
     steps:
@@ -35,9 +35,9 @@ jobs:
     - name: loading 15s
       run: TIMEOUT /T 15
       
-  publish snupkg:
+  supkgJob:
     runs-on: windows-latest
     steps:
     - name: Push to Nuget snupkg
       run: nuget push src\*\bin\Release\*.snupkg -Source https://api.nuget.org/v3/index.json -ApiKey ${{ secrets.NUGET }}
-    needs: [publish nupkg]
+    needs: [nupkgJob]
