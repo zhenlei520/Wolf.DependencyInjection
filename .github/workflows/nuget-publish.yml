@@ -31,5 +31,9 @@ jobs:
 
     - name: Push to Nuget nupkg
       run: nuget push src\*\bin\Release\*.nupkg -Source https://api.nuget.org/v3/index.json -ApiKey ${{ secrets.NUGET }}
+      
+    - name: loading 15s
+      run: TIMEOUT /T 15
+      
     - name: Push to Nuget snupkg
       run: nuget push src\*\bin\Release\*.snupkg -Source https://api.nuget.org/v3/index.json -ApiKey ${{ secrets.NUGET }}
