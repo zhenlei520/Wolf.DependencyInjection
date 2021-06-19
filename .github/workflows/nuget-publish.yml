@@ -21,7 +21,7 @@ jobs:
       with:        
         nuget-version: '5.x'
 
-    - name: Pack 
+    - name: Pack Wolf.DependencyInjection
       run: dotnet pack src\Wolf.DependencyInjection\Wolf.DependencyInjection.csproj --configuration Release -p:IncludeSymbols=true
       
     - name: Pack Wolf.DependencyInjection.Abstracts
