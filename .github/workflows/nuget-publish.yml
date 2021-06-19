@@ -21,7 +21,13 @@ jobs:
         nuget-version: '5.x'
 
     - name: Pack 
-      run: dotnet pack src\*\*.csproj --configuration Release -p:IncludeSymbols=true
+      run: dotnet pack src\Wolf.DependencyInjection\Wolf.DependencyInjection.csproj --configuration Release -p:IncludeSymbols=true
+      
+    - name: Pack Wolf.DependencyInjection.Abstracts
+      run: dotnet pack src\Wolf.DependencyInjection.Abstracts\Wolf.DependencyInjection.Abstracts.csproj --configuration Release -p:IncludeSymbols=true
+      
+    - name: Pack Wolf.DependencyInjection.Autofac
+      run: dotnet pack src\Wolf.DependencyInjection.Autofac\Wolf.DependencyInjection.Autofac.csproj --configuration Release -p:IncludeSymbols=true
 
     - name: Push to Nuget nupkg
       run: nuget push src\*\bin\Release\*.snupkg -Source https://api.nuget.org/v3/index.json -ApiKey ${{ secrets.NUGET }}
