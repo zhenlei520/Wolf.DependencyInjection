@@ -1,0 +1,34 @@
+name: publish to nuget
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    name: Wolf.DependencyInjection
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.407
+      
+    - name: Install Nuget
+      uses: nuget/setup-nuget@v1
+      with:        
+        nuget-version: '5.x'
+
+    - name: Pack Wolf.DependencyInjection
+      run: dotnet pack src\Wolf.DependencyInjection\Wolf.DependencyInjection.csproj --configuration Release -p:IncludeSymbols=true
+      
+    - name: Pack Wolf.DependencyInjection.Abstracts
+      run: dotnet pack src\Wolf.DependencyInjection.Abstracts\Wolf.DependencyInjection.Abstracts.csproj --configuration Release -p:IncludeSymbols=true
+      
+    - name: Pack Wolf.DependencyInjection.Autofac
+      run: dotnet pack src\Wolf.DependencyInjection.Autofac\Wolf.DependencyInjection.Autofac.csproj --configuration Release -p:IncludeSymbols=true
+
+    - name: Push to Nuget
+      run: nuget push src\*\bin\Release\*.nupkg -Source https://api.nuget.org/v3/index.json -ApiKey ${{ secrets.NUGET }}
+           nuget push src\*\bin\Release\*.snupkg -Source https://api.nuget.org/v3/index.json -ApiKey ${{ secrets.NUGET }}
