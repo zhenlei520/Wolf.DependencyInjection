@@ -37,4 +37,6 @@ jobs:
       run: |
         cd nupkgs
         dotnet nuget push *.nupkg -k ${{ secrets.GITHUBSECRET }}  -s https://nuget.pkg.github.com/wolfoftotem/index.json
+        dotnet nuget push *.snupkg -k ${{ secrets.GITHUBSECRET }}  -s https://nuget.pkg.github.com/wolfoftotem/index.json
         dotnet nuget push *.nupkg -k ${{ secrets.NUGET }} -s https://api.nuget.org/v3/index.json
+        dotnet nuget push *.snupkg -k ${{ secrets.NUGET }} -s https://api.nuget.org/v3/index.json
