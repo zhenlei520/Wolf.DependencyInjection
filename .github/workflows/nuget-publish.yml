@@ -8,27 +8,33 @@ on:
 jobs:
   nupkgJob:
     name: Wolf.DependencyInjection
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
+    
+    - name: Get version
+      id: get_version
+      run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+
+    - name: version
+      run: echo ${{ steps.get_version.outputs.VERSION }}
+      
     - uses: actions/checkout@v2
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.407
+        dotnet-version: 3.1.x
+        
+    - name: Restore dependencies
+      run: dotnet restore
       
-    - name: Install Nuget
-      uses: nuget/setup-nuget@v1
-      with:        
-        nuget-version: '5.x'
+    - name: Build
+      run: dotnet build --no-restore
 
-    - name: Pack Wolf.DependencyInjection
-      run: dotnet pack src\Wolf.DependencyInjection\Wolf.DependencyInjection.csproj --configuration Release -p:IncludeSymbols=true
-      
-    - name: Pack Wolf.DependencyInjection.Abstracts
-      run: dotnet pack src\Wolf.DependencyInjection.Abstracts\Wolf.DependencyInjection.Abstracts.csproj --configuration Release -p:IncludeSymbols=true
-      
-    - name: Pack Wolf.DependencyInjection.Autofac
-      run: dotnet pack src\Wolf.DependencyInjection.Autofac\Wolf.DependencyInjection.Autofac.csproj --configuration Release -p:IncludeSymbols=true
+    - name: Pack
+      run: dotnet pack --configuration Release -p:IncludeSymbols=true /p:Version=${{ steps.get_version.outputs.VERSION }} --output nupkgs
 
     - name: Push to Nuget nupkg
-      run: nuget push src\*\bin\Release\*.nupkg -Source https://api.nuget.org/v3/index.json -ApiKey ${{ secrets.NUGET }}
+      run: |
+        cd nupkgs
+        dotnet nuget push *.nupkg -k ${{ secrets.GITHUBSECRET }}  -s https://nuget.pkg.github.com/wolfoftotem/index.json
+        dotnet nuget push *.nupkg -k ${{ secrets.NUGET }} -s https://api.nuget.org/v3/index.json
