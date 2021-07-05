@@ -23,6 +23,7 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	<IncludeSymbols>true</IncludeSymbols>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <Description>升级Wolf.System.Core到0.0.1-preview-t019版本</Description>
   </PropertyGroup>
   <ItemGroup>
     <None Include="$(RepositoryRoot)packageIcon.png">
