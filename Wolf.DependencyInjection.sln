@@ -1,10 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wolf.DependencyInjection.Abstracts", "src\Wolf.DependencyInjection.Abstracts\Wolf.DependencyInjection.Abstracts.csproj", "{0121F652-C5B1-4F98-97E2-6AC0E2D0E2F6}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31710.8
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wolf.DependencyInjection.Abstracts", "src\Wolf.DependencyInjection.Abstracts\Wolf.DependencyInjection.Abstracts.csproj", "{0121F652-C5B1-4F98-97E2-6AC0E2D0E2F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wolf.DependencyInjection", "src\Wolf.DependencyInjection\Wolf.DependencyInjection.csproj", "{D646AB45-2071-47A7-9A85-871CC76E1EBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wolf.DependencyInjection", "src\Wolf.DependencyInjection\Wolf.DependencyInjection.csproj", "{D646AB45-2071-47A7-9A85-871CC76E1EBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wolf.DependencyInjection.Autofac", "src\Wolf.DependencyInjection.Autofac\Wolf.DependencyInjection.Autofac.csproj", "{5F1BAEDB-7794-4576-B0D0-00D08C87918A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wolf.DependencyInjection.Autofac", "src\Wolf.DependencyInjection.Autofac\Wolf.DependencyInjection.Autofac.csproj", "{5F1BAEDB-7794-4576-B0D0-00D08C87918A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7B9D768D-6A24-4490-8D16-E64FFC8902AD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{DE033E34-3FA4-4503-896D-10568C382EE8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,5 +31,16 @@ Global
 		{5F1BAEDB-7794-4576-B0D0-00D08C87918A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F1BAEDB-7794-4576-B0D0-00D08C87918A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F1BAEDB-7794-4576-B0D0-00D08C87918A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0121F652-C5B1-4F98-97E2-6AC0E2D0E2F6} = {7B9D768D-6A24-4490-8D16-E64FFC8902AD}
+		{D646AB45-2071-47A7-9A85-871CC76E1EBF} = {7B9D768D-6A24-4490-8D16-E64FFC8902AD}
+		{5F1BAEDB-7794-4576-B0D0-00D08C87918A} = {7B9D768D-6A24-4490-8D16-E64FFC8902AD}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DDC081AE-CAA1-438C-9A05-A9A9E787C55C}
 	EndGlobalSection
 EndGlobal

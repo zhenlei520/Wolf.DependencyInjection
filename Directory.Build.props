@@ -1,27 +1,27 @@
 <Project>
-	<PropertyGroup>
-		<LangVersion>7.3</LangVersion>
-	</PropertyGroup>
-	<Import Project="build\version.props" />
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <Import Project="build\version.props" />
 
   <PropertyGroup>
     <TargetFrameworks>net461;net462;net47;net471;net472;net48;netstandard2.0;netstandard2.1;netcoreapp2.1;netcoreapp2.2;netcoreapp3.0;netcoreapp3.1;</TargetFrameworks>
-	<PackageId>$(AssemblyName)</PackageId>
+    <PackageId>$(AssemblyName)</PackageId>
     <PackageIcon>packageIcon.png</PackageIcon>
     <Authors>zhenlei520</Authors>
     <Copyright>© zhenlei520 Corporation. All rights reserved.</Copyright>
-	<PackageProjectUrl>https://www.nuget.org/packages/$(PackageId)</PackageProjectUrl>
-	<PackageIconUrl>packageIcon.png</PackageIconUrl>
+    <PackageProjectUrl>https://www.nuget.org/packages/$(PackageId)</PackageProjectUrl>
+    <PackageIconUrl>packageIcon.png</PackageIconUrl>
     <RepositoryUrl>https://github.com/zhenlei520/Wolf.DependencyInjection</RepositoryUrl>
-	<RepositoryType>git</RepositoryType>
+    <RepositoryType>git</RepositoryType>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <RepositoryRoot>$(MSBuildThisFileDirectory)</RepositoryRoot>
     <RepoRelativeProjectDir>$([MSBuild]::MakeRelative($(RepositoryRoot), $(MSBuildProjectDirectory)))</RepoRelativeProjectDir>
     <IsProductComponent>false</IsProductComponent>
     <IsTestProject Condition="$(MSBuildProjectName.EndsWith('Tests')) OR $(MSBuildProjectName.EndsWith('.Test'))">true</IsTestProject>
-	<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-	<IncludeSymbols>true</IncludeSymbols>
+    <IncludeSymbols>true</IncludeSymbols>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <Description>升级Wolf.System.Core到0.0.1-preview-t019版本</Description>
   </PropertyGroup>
@@ -31,8 +31,8 @@
       <PackagePath></PackagePath>
     </None>
     <None Include="$(RepositoryRoot)LICENSE.md">
-        <Pack>True</Pack>
-        <PackagePath></PackagePath>
-      </None>
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 </Project>
