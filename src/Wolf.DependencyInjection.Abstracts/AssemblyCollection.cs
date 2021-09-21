@@ -9,6 +9,8 @@ public class AssemblyCollection : IAssemblyCollection
 
     private readonly List<Type> _types = new();
 
+    private readonly ConcurrentDictionary<Type, List<TypeRelationItem>> _typeRelations = new();
+
     public Assembly this[int index]
     {
         get
@@ -51,9 +53,8 @@ public class AssemblyCollection : IAssemblyCollection
 
     public List<Type> GetTypes(Type type, TypeCategory category = TypeCategory.All)
     {
-        var list = new List<Type>();
-
-        return list;
+        var list = _typeRelations.GetOrAdd(type, type => TypeRelationItem.GetRelationItems(_types,type));
+        return list.Where(relation => relation.Category == category).SelectMany(x => x.Types).Distinct().ToList();
     }
 
     public int IndexOf(Assembly item) => _assemblies.IndexOf(item);

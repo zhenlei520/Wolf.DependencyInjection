@@ -15,8 +15,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Wolf.DependencyInjection.Abstracts\Wolf.DependencyInjection.Abstracts.csproj" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <PackageReference Include="Wolf.Systems.Core" Version="0.0.1-preview-t019" />
-  </ItemGroup>
 </Project>
