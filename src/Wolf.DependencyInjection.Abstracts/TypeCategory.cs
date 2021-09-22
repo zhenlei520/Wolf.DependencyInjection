@@ -38,5 +38,4 @@ public enum TypeCategory
     /// </summary>
     [Description("泛型接口")]
     GenericInterface
-
 }

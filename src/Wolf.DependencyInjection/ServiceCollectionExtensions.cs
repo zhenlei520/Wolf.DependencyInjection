@@ -8,84 +8,6 @@ namespace Wolf.DependencyInjection;
 /// </summary>
 public static class ServiceCollectionExtensions
 {
-    #region 匹配接口没有实现时添加
-
-    /// <summary>
-    /// 匹配接口没有实现时添加
-    /// </summary>
-    /// <param name="serviceCollection"></param>
-    /// <param name="implementationInstance">实现</param>
-    /// <param name="serviceLifetime"></param>
-    /// <typeparam name="TService">接口</typeparam>
-    public static IServiceCollection TryAddEnumerable<TService>(this IServiceCollection serviceCollection,
-        TService implementationInstance,
-        ServiceLifetime serviceLifetime)
-        where TService : class
-    {
-        if (serviceLifetime != ServiceLifetime.Singleton && serviceLifetime != ServiceLifetime.Scoped &&
-            serviceLifetime != ServiceLifetime.Transient)
-        {
-            throw new NotSupportedException(nameof(serviceLifetime));
-        }
-
-        return serviceCollection.TryAddEnumerable(typeof(TService), implementationInstance.GetType(),
-            serviceLifetime);
-    }
-
-    #endregion
-
-    #region 匹配接口与实现类不一致时添加，否则不添加
-
-    /// <summary>
-    /// 匹配接口与实现类不一致时添加，否则不添加
-    /// </summary>
-    /// <param name="serviceCollection"></param>
-    /// <param name="serviceLifetime">生命周期</param>
-    /// <typeparam name="TService">接口</typeparam>
-    /// <typeparam name="TImplementation">实现</typeparam>
-    public static IServiceCollection TryAddEnumerable<TService, TImplementation>(
-        this IServiceCollection serviceCollection,
-        ServiceLifetime serviceLifetime)
-        where TService : class
-        where TImplementation : class, TService
-    {
-        return serviceCollection.TryAddEnumerable(typeof(TService), typeof(TImplementation), serviceLifetime);
-    }
-
-    /// <summary>
-    /// 匹配接口与实现类不一致时添加，否则不添加
-    /// </summary>
-    /// <param name="serviceCollection"></param>
-    /// <param name="service">接口</param>
-    /// <param name="implementation">实现</param>
-    /// <param name="serviceLifetime">生命周期</param>
-    public static IServiceCollection TryAddEnumerable(this IServiceCollection serviceCollection,
-        Type service,
-        Type implementation,
-        ServiceLifetime serviceLifetime)
-    {
-        serviceCollection.TryAddEnumerable(ServiceDescriptor.Describe(service, implementation, serviceLifetime));
-        return serviceCollection;
-    }
-
-    #endregion
-
-    #region 移除所有实现
-
-    /// <summary>
-    /// 移除所有实现
-    /// </summary>
-    /// <param name="serviceCollection"></param>
-    /// <typeparam name="TService">接口</typeparam>
-    /// <returns></returns>
-    public static IServiceCollection RemoveAll<TService>(this IServiceCollection serviceCollection)
-        where TService : class
-    {
-        return ServiceCollectionDescriptorExtensions.RemoveAll<TService>(serviceCollection);
-    }
-
-    #endregion
-
     #region 自动注入
 
     /// <summary>
@@ -94,9 +16,9 @@ public static class ServiceCollectionExtensions
     /// <param name="serviceCollection"></param>
     /// <param name="packageNamePrefix">多个包前缀注入</param>
     /// <returns></returns>
-    public static IServiceCollection AddAutoInject(this IServiceCollection serviceCollection,
-        params string[] packageNamePrefix)
+    public static IServiceCollection AddAutoInject(this IServiceCollection serviceCollection, params string[] packageNamePrefix)
     {
+
         Assembly[] assemblies;
         if (packageNamePrefix == null || packageNamePrefix.Length == 0 ||
             packageNamePrefix.All(string.IsNullOrWhiteSpace))
@@ -115,12 +37,49 @@ public static class ServiceCollectionExtensions
     /// <summary>
     /// 自动注入
     /// </summary>
-    /// <param name="serviceCollection"></param>
-    /// <param name="assembly">当前程序集需要用到注入的应用程序集</param>
+    /// <param name="services"></param>
+    /// <param name="assemblies">当前程序集需要用到注入的应用程序集</param>
     /// <returns></returns>
-    public static IServiceCollection AddAutoInject(this IServiceCollection serviceCollection, Assembly[] assembly)
+    public static IServiceCollection AddAutoInject(this IServiceCollection services, params Assembly[] assemblies)
     {
-        return new AutoRegister(assembly).AddAutoInject(serviceCollection);
+        services.AddAssembly(assemblies);
+        return new AutoRegister(assemblies ?? throw new ArgumentNullException(nameof(assemblies))).Build(services);
+    }
+
+    #endregion
+
+    #region private methods
+
+    private static IServiceCollection AddAssembly(this IServiceCollection services, params Assembly[] assemblies)
+    {
+        if (assemblies == null) throw new ArgumentNullException(nameof(assemblies));
+        if (assemblies.Length == 0) throw new ArgumentException($"{nameof(assemblies)} must be greater than 0");
+
+        return services.AddGeneric<Assembly, IAssemblyCollection, AssemblyCollection>(assemblies);
+    }
+
+    private static IServiceCollection AddGeneric<T, TCollection, TCollectionImplementation>(this IServiceCollection services, params T[] array)
+        where TCollection : class, IList<T>
+        where TCollectionImplementation : class, TCollection
+    {
+        if (services.All(service => service.ServiceType != typeof(T)))
+        {
+            services.AddSingleton<TCollection, TCollectionImplementation>();
+        }
+        var serviceProvider = services.BuildServiceProvider();
+        var list = serviceProvider.GetRequiredService<TCollection>();
+        foreach (var item in array)
+        {
+            services.AddGeneric(list, item);
+        }
+
+        return services;
+    }
+
+    private static IServiceCollection AddGeneric<T>(this IServiceCollection services, IList<T> list, T item)
+    {
+        list.Add(item);
+        return services;
     }
 
     #endregion

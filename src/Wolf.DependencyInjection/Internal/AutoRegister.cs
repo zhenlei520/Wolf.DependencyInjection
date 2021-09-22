@@ -1,11 +1,11 @@
-namespace Wolf.DependencyInjection.Extension;
+namespace Wolf.DependencyInjection.Internal;
 
-public class AutoRegister
+internal class AutoRegister
 {
     private readonly Assembly[] _assemblies;
 
     /// <summary>
-    /// 不建议使用当前程序集域，因为依赖注入采用惰性加载，会导致所需要的应用程序集确实
+    /// 不建议使用当前程序集域，因为依赖注入采用惰性加载，可能会导致所需要的应用程序集缺失
     /// </summary>
     public AutoRegister() : this(AppDomain.CurrentDomain.GetAssemblies())
     {
@@ -14,17 +14,14 @@ public class AutoRegister
     /// <summary>
     ///
     /// </summary>
-    public AutoRegister(Assembly[] assemblies)
-    {
-        this._assemblies = assemblies ?? throw new ArgumentNullException(nameof(assemblies));
-    }
+    public AutoRegister(Assembly[] assemblies) => _assemblies = assemblies;
 
     /// <summary>
     ///
     /// </summary>
     /// <param name="serviceCollection"></param>
     /// <returns></returns>
-    public virtual IServiceCollection AddAutoInject(IServiceCollection serviceCollection)
+    public virtual IServiceCollection Build(IServiceCollection serviceCollection)
     {
         #region 单例
 
@@ -106,15 +103,15 @@ public class AutoRegister
     /// <summary>
     /// 添加注入
     /// </summary>
-    /// <param name="serviceCollection"></param>
+    /// <param name="services"></param>
     /// <param name="type"></param>
     /// <param name="serviceLifetime"></param>
-    private void RegisterGeneric(IServiceCollection serviceCollection, Type type, ServiceLifetime serviceLifetime)
+    private void RegisterGeneric(IServiceCollection services, Type type, ServiceLifetime serviceLifetime)
     {
-        var list = TypeCommon.GetInterfaceAndImplementationType(this._assemblies, type);
+        var list = AssemblyCommon.GetInterfaceAndImplementationType(type, services.BuildServiceProvider().GetRequiredService<IAssemblyCollection>());
         foreach (var item in list)
         {
-            serviceCollection.TryAddEnumerable(item.Key, item.Value, serviceLifetime);
+            services.TryAddEnumerable(new ServiceDescriptor(item.serviceType, item.implementationType, serviceLifetime));
         }
     }
 

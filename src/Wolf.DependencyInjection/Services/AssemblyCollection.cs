@@ -1,7 +1,7 @@
 // Copyright (c) zhenlei520 All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-namespace Wolf.DependencyInjection.Abstracts;
+namespace Wolf.DependencyInjection.Services;
 
 public class AssemblyCollection : IAssemblyCollection
 {
@@ -53,7 +53,7 @@ public class AssemblyCollection : IAssemblyCollection
 
     public List<Type> GetTypes(Type type, TypeCategory category = TypeCategory.All)
     {
-        var list = _typeRelations.GetOrAdd(type, type => TypeRelationItem.GetRelationItems(_types,type));
+        var list = _typeRelations.GetOrAdd(type, type => TypeRelationItem.GetRelationItems(_types, type));
         return list.Where(relation => relation.Category == category).SelectMany(x => x.Types).Distinct().ToList();
     }
 

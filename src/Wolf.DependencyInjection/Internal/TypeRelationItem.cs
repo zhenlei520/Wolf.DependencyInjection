@@ -2,16 +2,15 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using System.ComponentModel;
-using Wolf.Systems.Core;
 
-namespace Wolf.DependencyInjection.Abstracts.Internal;
+namespace Wolf.DependencyInjection.Internal;
 
 internal class TypeRelationItem
 {
     public TypeRelationItem(TypeCategory category, IEnumerable<Type> types)
     {
-        this.Category = category;
-        this.Types = types.ToList();
+        Category = category;
+        Types = types.ToList();
     }
 
     public TypeCategory Category { get; set; }
