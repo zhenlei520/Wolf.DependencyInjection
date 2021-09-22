@@ -18,7 +18,6 @@ public static class ServiceCollectionExtensions
     /// <returns></returns>
     public static IServiceCollection AddAutoInject(this IServiceCollection serviceCollection, params string[] packageNamePrefix)
     {
-
         Assembly[] assemblies;
         if (packageNamePrefix == null || packageNamePrefix.Length == 0 ||
             packageNamePrefix.All(string.IsNullOrWhiteSpace))
@@ -42,6 +41,11 @@ public static class ServiceCollectionExtensions
     /// <returns></returns>
     public static IServiceCollection AddAutoInject(this IServiceCollection services, params Assembly[] assemblies)
     {
+        //if (services.Any(service => service.ServiceType == typeof(IDependencyInjection)))
+        //{
+        //    return services;
+        //}
+        //services.AddSingleton<IDependencyInjection>();
         services.AddAssembly(assemblies);
         return new AutoRegister(assemblies ?? throw new ArgumentNullException(nameof(assemblies))).Build(services);
     }
@@ -49,6 +53,11 @@ public static class ServiceCollectionExtensions
     #endregion
 
     #region private methods
+
+    internal interface IDependencyInjection
+    {
+
+    }
 
     private static IServiceCollection AddAssembly(this IServiceCollection services, params Assembly[] assemblies)
     {
@@ -62,17 +71,13 @@ public static class ServiceCollectionExtensions
         where TCollection : class, IList<T>
         where TCollectionImplementation : class, TCollection
     {
-        if (services.All(service => service.ServiceType != typeof(T)))
-        {
-            services.AddSingleton<TCollection, TCollectionImplementation>();
-        }
-        var serviceProvider = services.BuildServiceProvider();
-        var list = serviceProvider.GetRequiredService<TCollection>();
+        var implementationType = typeof(TCollectionImplementation);
+        var collection = (TCollectionImplementation)Assembly.GetAssembly(implementationType).CreateInstance(implementationType.ToString());
         foreach (var item in array)
         {
-            services.AddGeneric(list, item);
+            services.AddGeneric(collection, item);
         }
-
+        services.AddSingleton(typeof(TCollection), collection);
         return services;
     }
 

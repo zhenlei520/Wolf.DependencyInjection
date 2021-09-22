@@ -40,7 +40,7 @@ internal class TypeRelationItem
         }
         else if (category == TypeCategory.Interface)
         {
-            return typeList.Where(type => type.IsInterface && !type.IsGeneric()).ToList();
+            return typeList.Where(type => type.IsInterface && !type.IsGeneric() && type != serviceType).ToList();
         }
         else if (category == TypeCategory.GenericInterface)
         {
