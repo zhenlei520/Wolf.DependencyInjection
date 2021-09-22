@@ -19,5 +19,15 @@ namespace Wolf.DependencyInjection.Tests
         {
 
         }
+
+        public interface IUserRepository : IRepository
+        {
+
+        }
+
+        public class UserRepository : IRepository, IUserRepository
+        {
+
+        }
     }
 }

@@ -1,6 +1,8 @@
 // Copyright (c) zhenlei520 All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+using System.Linq;
+
 namespace Wolf.DependencyInjection.Tests
 {
     [TestClass]
@@ -9,8 +11,8 @@ namespace Wolf.DependencyInjection.Tests
         [TestMethod]
         public void TestAddAutoInject()
         {
-            var repository = base._serviceProvider.GetServices<IRepository>();
-            Assert.IsNotNull(repository);
+            Assert.IsNotNull(base._serviceProvider.GetService<IRepository>());
+            Assert.IsTrue(base._serviceProvider.GetServices<IRepository>().Count() == 1);
         }
     }
 }

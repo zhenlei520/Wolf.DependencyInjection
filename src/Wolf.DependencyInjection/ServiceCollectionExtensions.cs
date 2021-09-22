@@ -41,20 +41,20 @@ public static class ServiceCollectionExtensions
     /// <returns></returns>
     public static IServiceCollection AddAutoInject(this IServiceCollection services, params Assembly[] assemblies)
     {
-        //if (services.Any(service => service.ServiceType == typeof(IDependencyInjection)))
-        //{
-        //    return services;
-        //}
-        //services.AddSingleton<IDependencyInjection>();
-        services.AddAssembly(assemblies);
-        return new AutoRegister(assemblies ?? throw new ArgumentNullException(nameof(assemblies))).Build(services);
+        if (services.Any(s => s.ImplementationType == typeof(DependencyInjection)))
+        {
+            return services;
+        }
+        services.AddSingleton<DependencyInjection>();
+        services.AddAssembly(assemblies ?? throw new ArgumentNullException(nameof(assemblies)));
+        return new AutoRegister().Build(services);
     }
 
     #endregion
 
     #region private methods
 
-    internal interface IDependencyInjection
+    private class DependencyInjection
     {
 
     }
