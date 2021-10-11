@@ -13,9 +13,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7B9D768D-6A2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{DE033E34-3FA4-4503-896D-10568C382EE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wolf.DependencyInjection.Extensions", "src\Wolf.DependencyInjection.Extensions\Wolf.DependencyInjection.Extensions.csproj", "{FBB95E55-1846-4864-B93C-9713A95F3AFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wolf.DependencyInjection.Extensions", "src\Wolf.DependencyInjection.Extensions\Wolf.DependencyInjection.Extensions.csproj", "{FBB95E55-1846-4864-B93C-9713A95F3AFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wolf.DependencyInjection.Tests", "test\Wolf.DependencyInjection.Tests\Wolf.DependencyInjection.Tests.csproj", "{FD31BE73-0A5D-4A0E-AFA3-DF3343F76030}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wolf.DependencyInjection.Tests", "test\Wolf.DependencyInjection.Tests\Wolf.DependencyInjection.Tests.csproj", "{FD31BE73-0A5D-4A0E-AFA3-DF3343F76030}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

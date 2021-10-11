@@ -4,9 +4,8 @@
 namespace Wolf.DependencyInjection.Abstracts;
 
 /// <summary>
-/// 继承此接口时会自动注入并自动触发
+/// 继承此接口时会自动注入并自动触发，配合ISingleInstance、IPerRequest、IDependency使用
 /// </summary>
-public interface IService
+public interface IAutoFireService
 {
-    IServiceCollection Services { get; }
 }

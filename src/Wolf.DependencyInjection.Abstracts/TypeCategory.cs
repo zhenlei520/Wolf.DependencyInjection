@@ -7,11 +7,11 @@ namespace Wolf.DependencyInjection.Abstracts;
 
 public enum TypeCategory
 {
-    /// <summary>
-    /// 全部
-    /// </summary>
-    [Description("全部")]
-    All = 1,
+    // /// <summary>
+    // /// 全部
+    // /// </summary>
+    // [Description("全部")]
+    // All = 1,
 
     /// <summary>
     /// 普通类,不包含抽象类
@@ -19,12 +19,12 @@ public enum TypeCategory
     [Description("普通类")]
     Class,
 
-    /// <summary>
-    /// 泛型类
-    /// 例如：List<string>
-    /// </summary>
-    [Description("泛型类")]
-    GenericClass,
+    // /// <summary>
+    // /// 泛型类
+    // /// 例如：List<string>
+    // /// </summary>
+    // [Description("泛型类")]
+    // GenericClass,
 
     /// <summary>
     /// 普通接口
@@ -32,10 +32,10 @@ public enum TypeCategory
     [Description("普通接口")]
     Interface,
 
-    /// <summary>
-    /// 泛型接口
-    /// 例如：IList<string>
-    /// </summary>
-    [Description("泛型接口")]
-    GenericInterface
+    // /// <summary>
+    // /// 泛型接口
+    // /// 例如：IList<string>
+    // /// </summary>
+    // [Description("泛型接口")]
+    // GenericInterface
 }

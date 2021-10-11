@@ -1,4 +1,5 @@
 // Copyright (c) zhenlei520 All rights reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
 
 namespace Wolf.DependencyInjection.Internal;
 
@@ -41,37 +42,6 @@ internal class AssemblyCommon
         }
 
         return list.ToArray();
-    }
-
-    #endregion
-
-    #region 查询继承type的接口与实现类集合
-
-    /// <summary>
-    /// 查询继承type的接口与实现类集合
-    /// </summary>
-    /// <param name="type"></param>
-    /// <param name="assemblies"></param>
-    /// <returns></returns>
-    public static List<(Type serviceType, Type implementationType)> GetInterfaceAndImplementationType(Type type, IAssemblyCollection assemblies)
-    {
-        var classTypes = assemblies.GetTypes(type, TypeCategory.Class);
-        var interfaceTypes = assemblies.GetTypes(type, TypeCategory.Interface);
-
-        var list = new List<(Type serviceType, Type implementationType)>();
-
-        foreach (var interfaceType in interfaceTypes)
-        {
-            foreach (var classType in classTypes)
-            {
-                if (interfaceType.IsAssignableFrom(classType))
-                {
-                    list.Add((interfaceType, classType));
-                }
-            }
-        }
-
-        return list;
     }
 
     #endregion
