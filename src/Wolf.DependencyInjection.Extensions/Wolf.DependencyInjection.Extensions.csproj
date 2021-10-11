@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <PackageProjectUrl>https://www.nuget.org/packages/$(AssemblyName)</PackageProjectUrl>
-    <TargetFrameworks>net6.0;</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
