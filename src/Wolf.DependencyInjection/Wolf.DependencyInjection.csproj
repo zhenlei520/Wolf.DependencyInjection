@@ -5,10 +5,6 @@
     <TargetFrameworks>net6.0;</TargetFrameworks>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <DocumentationFile>bin\Debug\Wolf.DependencyInjection.xml</DocumentationFile>
-  </PropertyGroup>
-
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DocumentationFile>bin\Release\Wolf.DependencyInjection.xml</DocumentationFile>
   </PropertyGroup>

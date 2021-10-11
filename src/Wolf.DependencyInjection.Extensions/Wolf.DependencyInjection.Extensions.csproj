@@ -5,6 +5,10 @@
     <TargetFrameworks>net6.0;</TargetFrameworks>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DocumentationFile>bin\Release\Wolf.DependencyInjection.Extensions.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Wolf.DependencyInjection\Wolf.DependencyInjection.csproj" />
   </ItemGroup>
